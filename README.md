@@ -4,7 +4,7 @@ This role installed the host sflow daemon for gathering and sending metrics usin
 
 ## Requirements
 
-None
+Requires ansible >= 2.1 due to using the `apt` module to download hsflowd
 
 ## Role Variables
 
