@@ -2,4 +2,5 @@
   service:
     name: hsflowd
     state: restarted
-  when: not ansible_check_mode
+  register: result
+  failed_when: "'no service or tool found' not in result.msg"
