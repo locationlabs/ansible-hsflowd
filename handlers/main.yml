@@ -2,5 +2,3 @@
   service:
     name: hsflowd
     state: restarted
-  register: result
-  failed_when: "'no service or tool found' not in result.msg"
