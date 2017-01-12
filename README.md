@@ -1,6 +1,6 @@
 # hsflow
 
-This role installed the host sflow daemon for gathering and sending metrics using sFlow.
+This role installs the host sflow daemon for gathering and sending metrics using sFlow.
 
 ## Requirements
 
