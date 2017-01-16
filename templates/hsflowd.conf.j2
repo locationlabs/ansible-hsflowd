@@ -28,7 +28,7 @@ sflow {
   #   sampling N for application (requires json):
   #     sampling.app.myapp = 100
   #   collectors:
-  collector { ip={{ ganglia_listener_ip }} udpport={{ ganglia_monitor_send_port }} }
+  collector { ip={{ ganglia_listener_ip|mandatory }} udpport={{ ganglia_monitor_send_port|mandatory }} }
   #   add additional collectors here
 
   # ====== Local configuration ======
