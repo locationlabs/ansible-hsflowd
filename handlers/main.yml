@@ -1,0 +1,4 @@
+- name: restart hsflowd
+  service:
+    name: hsflowd
+    state: restarted

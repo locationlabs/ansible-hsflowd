@@ -1,0 +1,14 @@
+- name: Download/Install host-sflow package
+  apt:
+    deb: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd_{{ hsflow_version }}_amd64.deb"
+
+- name: Template hsflowd.conf
+  template:
+    src: hsflowd.conf.j2
+    dest: /etc/hsflowd.conf
+  notify: restart hsflowd
+
+- name: Enable hsflowd at boot
+  service:
+    name: hsflowd
+    enabled: yes
