@@ -1,0 +1,13 @@
+- name: Install libpcap
+  apt:
+    name: libpcap-dev
+    state: present
+
+- name: Gather list of bridge devices
+  shell: "brctl show | awk 'NF>1 && NR>1 {print $1}'"
+  register: bridges
+
+- name: Template libvirt integration config fragment
+  template:
+    src: hv.j2
+    dest: "{{ hsflow_conf_dir }}/20-hv.fragment"

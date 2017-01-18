@@ -1,0 +1,22 @@
+- name: Download/Install host-sflow package
+  apt:
+    deb: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd_{{ hsflow_version }}_amd64.deb"
+
+- name: Create configuration fragments folder
+  file:
+    path: "{{ hsflow_conf_dir }}"
+    state: directory
+
+- name: Template config fragments
+  template:
+    src: "{{ item.name }}.j2"
+    dest: "{{ hsflow_conf_dir }}/{{ item.order }}-{{ item.name }}.fragment"
+  with_items:
+    - { name: 'header', order: '00' }
+    - { name: 'collector', order: '10' }
+    - { name: 'footer', order: '90' }
+
+- name: Enable hsflowd at boot
+  service:
+    name: hsflowd
+    enabled: yes

@@ -1,0 +1,5 @@
+  kvm { }
+  pcap { dev = virbr0 }
+  {% for bridge in bridges.stdout_lines %}
+  pcap { dev = {{ bridge }} }
+  {% endfor %}
