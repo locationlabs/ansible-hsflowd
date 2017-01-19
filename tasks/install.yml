@@ -10,10 +10,10 @@
 - name: Template config fragments
   template:
     src: "{{ item.name }}.j2"
-    dest: "{{ hsflow_conf_dir }}/{{ item.order }}-{{ item.name }}.fragment"
+    dest: "{{ hsflow_conf_dir }}/{{ item.order|default('50') }}-{{ item.name }}.fragment"
   with_items:
     - { name: 'header', order: '00' }
-    - { name: 'collector', order: '10' }
+    - { name: 'collector' }
     - { name: 'footer', order: '90' }
 
 - name: Enable hsflowd at boot

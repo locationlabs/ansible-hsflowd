@@ -1,8 +1,7 @@
 - include: install.yml
-  when: deploy_mode == 'install'
 
-- include: hv.yml
-  when: deploy_mode == 'hv'
+- include: kvm.yml
+  when: kvm|default(false)
 
 - name: Assemble hsflowd.conf
   assemble:
