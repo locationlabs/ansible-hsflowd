@@ -7,6 +7,6 @@
   assemble:
     src: "{{ hsflow_conf_dir }}"
     dest: /etc/hsflowd.conf
-    regexp: '\\.fragment$'
+    regexp: '[.]fragment$'
     delimiter: ' '
   notify: restart hsflowd
