@@ -9,9 +9,7 @@ Requires ansible >= 2.1 due to using the `apt` module to download hsflowd
 ## Role Variables
 
 * `hsflow_version`: Version of hsflowd to install
-* `deploy_mode`: Controls deploy mode, mutually exclusive actions, default value _install_.
- * `install`: Install basic hsflow config
- * `hv`: Update hsflow config with KVM integration
+* `kvm`: boolean - Enable libvirt integration when true
 
 The following ganglia variables are unique to every environment:
 * `ganglia_listener_ip'`: MANDATORY - The hostname or ip address of the ganglia listener node receiving metrics
@@ -33,4 +31,4 @@ To enable KVM integration on a host that already has hsflow installed via this r
 
     - hosts: hypervisors
       roles:
-        - { role: hsflow, deploy_mode: 'hv' }
+        - { role: hsflow, kvm: true }
