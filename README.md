@@ -2,6 +2,11 @@
 
 This role installs the host sflow daemon for gathering and sending metrics using sFlow.
 
+The expectation is this role will be deployed against hosts where it can retrieve the ganglia
+variables from the environment and begin sending baseline metrics to the ganglia infrastructure for
+that environment. For KVM hosts, this role will be utilized by `ig/deploy/kvm_hypervisors` and
+enable the libvirt integration to gather additional metrics.
+
 ## Requirements
 
 Requires ansible >= 2.1 due to using the `apt` module to download hsflowd
@@ -21,13 +26,13 @@ None
 
 ## Example Playbook
 
-To just install hsflow on a host:
+To install hsflow on a host:
 
     - hosts: servers
       roles:
          - hsflow
 
-To enable KVM integration on a host that already has hsflow installed via this role
+To enable KVM integration:
 
     - hosts: hypervisors
       roles:
