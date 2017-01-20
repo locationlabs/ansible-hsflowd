@@ -1,4 +1,0 @@
-- name: Template libvirt integration config fragment
-  template:
-    src: kvm.j2
-    dest: "{{ hsflow_conf_dir }}/50-kvm.fragment"

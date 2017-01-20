@@ -1,7 +1,10 @@
 - include: install.yml
 
-- include: kvm.yml
-  when: kvm|default(false)
+- name: Template libvirt integration config fragment
+  template:
+    src: kvm.j2
+    dest: "{{ hsflow_conf_dir }}/50-kvm.fragment"
+  when: kvm
 
 - name: Assemble hsflowd.conf
   assemble:
