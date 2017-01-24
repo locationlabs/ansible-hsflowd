@@ -1,14 +1,15 @@
-- name: Download/Install host-sflow package
-  apt:
-    deb: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd_{{ hsflow_version }}_amd64.deb"
+- include: install.yml
 
-- name: Template hsflowd.conf
+- name: Template libvirt integration config fragment
   template:
-    src: hsflowd.conf.j2
-    dest: /etc/hsflowd.conf
-  notify: restart hsflowd
+    src: kvm.j2
+    dest: "{{ hsflow_conf_dir }}/50-kvm.fragment"
+  when: kvm
 
-- name: Enable hsflowd at boot
-  service:
-    name: hsflowd
-    enabled: yes
+- name: Assemble hsflowd.conf
+  assemble:
+    src: "{{ hsflow_conf_dir }}"
+    dest: /etc/hsflowd.conf
+    regexp: '[.]fragment$'
+    delimiter: ' '
+  notify: restart hsflowd
