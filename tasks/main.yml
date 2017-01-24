@@ -1,0 +1,15 @@
+- include: install.yml
+
+- name: Template libvirt integration config fragment
+  template:
+    src: kvm.j2
+    dest: "{{ hsflow_conf_dir }}/50-kvm.fragment"
+  when: kvm
+
+- name: Assemble hsflowd.conf
+  assemble:
+    src: "{{ hsflow_conf_dir }}"
+    dest: /etc/hsflowd.conf
+    regexp: '[.]fragment$'
+    delimiter: ' '
+  notify: restart hsflowd
