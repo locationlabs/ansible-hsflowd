@@ -3,3 +3,4 @@
 # http://sflow.net/host-sflow-linux-config.php
 
 sflow {
+  agent.cidr = {{ net_mask|ipaddr('net') }}

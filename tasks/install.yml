@@ -7,6 +7,9 @@
     path: "{{ hsflow_conf_dir }}"
     state: directory
 
+- set_fact:
+    net_mask: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+
 - name: Template config fragments
   template:
     src: "{{ item.name }}.j2"
