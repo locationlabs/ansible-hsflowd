@@ -1,6 +1,13 @@
-- name: Download/Install host-sflow package
+- name: Download/Install host-sflow package for Ubuntu
   apt:
     deb: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd_{{ hsflow_version }}_amd64.deb"
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install hsflowd package for CentOS
+  yum:
+    name: https://github.com/sflow/host-sflow/releases/download/v2.0.7/hsflowd-centos7-2.0.7-1.x86_64.rpm
+    state: present
+  when: ansible_distribution == "CentOS"
 
 - name: Create configuration fragments folder
   file:
