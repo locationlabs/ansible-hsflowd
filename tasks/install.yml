@@ -5,7 +5,7 @@
 
 - name: Install hsflowd package for CentOS
   yum:
-    name: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_release }}/hsflowd-centos7-{{ hsflow_version }}_x86_64.rpm"
+    name: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_release }}/hsflowd-centos7-{{ hsflow_version }}.x86_64.rpm"
     state: present
   when: ansible_distribution == "CentOS"
 
