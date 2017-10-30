@@ -1,4 +1,4 @@
-- include: install.yml
+- import_tasks: install.yml
 
 - name: Template libvirt integration config fragment
   template:

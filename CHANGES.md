@@ -1,3 +1,6 @@
+Version 2.0:
+ - Porting role to ansible 2.4 style includes
+ 
 Version 1.0.1:
  - Fix for agent to know what interface to use
 

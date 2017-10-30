@@ -11,7 +11,7 @@ enable the libvirt integration to gather additional metrics.
 
 Requires
 
-* ansible >= 2.1 due to using the `apt` module to download hsflowd
+* ansible >= 2.4
 * netaddr for determining host IP network
 
 ## Role Variables
