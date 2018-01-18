@@ -12,7 +12,7 @@
 - set_fact:
     net_mask: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
 
-- name: Template config fragments
+- name: Template config
   template:
     src: "hsflowd.conf.j2"
     dest: /etc/hsflowd.conf
