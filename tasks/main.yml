@@ -1,15 +1,24 @@
-- import_tasks: install.yml
+- name: Download/Install hsflow for Ubuntu
+  apt:
+    deb: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd-{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }}_{{ hsflow_version }}_amd64.deb"
+  when: ansible_distribution == "Ubuntu"
 
-- name: Template libvirt integration config fragment
+- name: Install hsflowd package for CentOS
+  yum:
+    name: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd-{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }}-{{ hsflow_version }}.x86_64.rpm"
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- set_fact:
+    net_mask: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+
+- name: Template config
   template:
-    src: kvm.j2
-    dest: "{{ hsflow_conf_dir }}/50-kvm.fragment"
-  when: kvm
-
-- name: Assemble hsflowd.conf
-  assemble:
-    src: "{{ hsflow_conf_dir }}"
+    src: "hsflowd.conf.j2"
     dest: /etc/hsflowd.conf
-    regexp: '[.]fragment$'
-    delimiter: ' '
   notify: restart hsflowd
+
+- name: Enable hsflowd at boot
+  service:
+    name: hsflowd
+    enabled: yes

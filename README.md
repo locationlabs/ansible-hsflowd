@@ -13,11 +13,13 @@ Requires
 
 * ansible >= 2.4
 * netaddr for determining host IP network
+* hsflowd version >= 2.0.7 due to the change in their download url. See https://github.com/sflow/host-sflow/releases
 
 ## Role Variables
 
 * `hsflow_version`: Version of hsflowd to install
-* `kvm`: boolean - Enable libvirt integration when true
+* `hsflow_kvm`: boolean - Enable libvirt integration when true
+* `hsflow_systemd`: boolean - Enable systemd integration when true
 
 The following ganglia variables are unique to every environment:
 * `ganglia_listener_ip'`: MANDATORY - The hostname or ip address of the ganglia listener node receiving metrics
@@ -32,11 +34,16 @@ None
 To install hsflow on a host:
 
     - hosts: servers
-      roles:
-         - hsflow
+      tasks:
+        - import_role:
+            name: hsflow
 
-To enable KVM integration:
+To enable the integrations:
 
     - hosts: hypervisors
-      roles:
-        - { role: hsflow, kvm: true }
+      tasks:
+        - import_role:
+            name: hsflow
+          vars:
+            hsflow_kvm: true
+            hsflow_systemd: true
