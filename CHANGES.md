@@ -1,3 +1,6 @@
+Version 2.1:
+ - Bump version of hsflow to 2.0.11
+
 Version 2.0:
  - Porting role to ansible 2.4 style includes
 
