@@ -1,6 +1,0 @@
-# {{ ansible_managed }}
-# hsflowd configuration file
-# http://sflow.net/host-sflow-linux-config.php
-
-sflow {
-  agent.cidr = {{ net_mask|ipaddr('net') }}

@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+# hsflowd configuration file
+# http://sflow.net/host-sflow-linux-config.php
+
+sflow {
+  agent.cidr = {{ net_mask|ipaddr('net') }}
+  collector { ip={{ ganglia_listener_ip|mandatory }} udpport={{ ganglia_monitor_send_port|mandatory }} }
+{% if hsflow_kvm %}  kvm { } {% endif %}
+{% if hsflow_systemd %}  systemd { } {% endif %}
+
+}
