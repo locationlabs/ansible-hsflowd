@@ -20,6 +20,7 @@ Requires
 * `hsflow_version`: Version of hsflowd to install
 * `hsflow_kvm`: boolean - Enable libvirt integration when true
 * `hsflow_systemd`: boolean - Enable systemd integration when true
+* `hsflow_ovs`: boolean - Enable openvswitch integration when true
 
 The following ganglia variables are unique to every environment:
 * `ganglia_listener_ip'`: MANDATORY - The hostname or ip address of the ganglia listener node receiving metrics

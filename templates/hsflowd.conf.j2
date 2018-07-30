@@ -7,5 +7,6 @@ sflow {
   collector { ip={{ ganglia_listener_ip|mandatory }} udpport={{ ganglia_monitor_send_port|mandatory }} }
 {% if hsflow_kvm %}  kvm { } {% endif %}
 {% if hsflow_systemd %}  systemd { } {% endif %}
+{% if hsflow_ovs %}  ovs { } {% endif %}
 
 }
