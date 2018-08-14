@@ -17,9 +17,11 @@ Requires
 
 ## Role Variables
 
-* `hsflow_version`: Version of hsflowd to install
+* `hsflow_version`: Version of hsflowd to install - Use of `hsflow_download_url` will override this variable
 * `hsflow_kvm`: boolean - Enable libvirt integration when true
 * `hsflow_systemd`: boolean - Enable systemd integration when true
+* `hsflow_ovs`: boolean - Enable openvswitch integration when true
+* `hsflow_download_url`: Override download url, such as to fetch from a local server instead of github
 
 The following ganglia variables are unique to every environment:
 * `ganglia_listener_ip'`: MANDATORY - The hostname or ip address of the ganglia listener node receiving metrics
