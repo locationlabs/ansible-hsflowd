@@ -1,3 +1,8 @@
+Version: 2.2:
+ - Open vSwitch support
+ - Custom download url
+ - Build from source instructions
+
 Version 2.1:
  - Bump version of hsflow to 2.0.11
 
