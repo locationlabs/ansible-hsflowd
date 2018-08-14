@@ -17,7 +17,7 @@ Requires
 
 ## Role Variables
 
-* `hsflow_version`: Version of hsflowd to install - Mutually exclusive with `hsflow_download_url`
+* `hsflow_version`: Version of hsflowd to install - Use of `hsflow_download_url` will override this variable
 * `hsflow_kvm`: boolean - Enable libvirt integration when true
 * `hsflow_systemd`: boolean - Enable systemd integration when true
 * `hsflow_ovs`: boolean - Enable openvswitch integration when true
