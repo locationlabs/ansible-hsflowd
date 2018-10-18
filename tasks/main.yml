@@ -1,14 +1,18 @@
-- include_vars: "{{ ansible_distribution }}.yml"
-  when: hsflow_download_url is undefined
-
+# Bummer, apt does not have the same interface as yum, thus two different tasks depending if
+# installing from url or repo
 - name: Download/Install hsflow for Ubuntu
   apt:
     deb: "{{ hsflow_download_url }}"
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Ubuntu" and hsflow_web_install
+
+- name: Install hsflowd package for Ubuntu
+  apt:
+    name: hsflowd
+  when: ansible_distribution == "Ubuntu" and not hsflow_web_install
 
 - name: Install hsflowd package for CentOS
   yum:
-    name: "{{ hsflow_download_url }}"
+    name: "{{ hsflow_web_install | ternary( hsflow_download_url, 'hsflowd' ) }}"
     state: present
   when: ansible_distribution == "CentOS"
 
