@@ -1,4 +1,8 @@
-Version: 2.2:
+Version 2.2.1:
+ - Arbitrary download url support for CentOS or Ubuntu
+ - Or install from repo
+
+Version 2.2:
  - Open vSwitch support
  - Custom download url
  - Build from source instructions
