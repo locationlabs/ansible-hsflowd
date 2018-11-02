@@ -1,4 +1,4 @@
-hsflow_version: 2.0.11-1
+hsflow_web_install: true
 hsflow_kvm: false
 hsflow_systemd: false
 hsflow_ovs: false

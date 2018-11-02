@@ -1,1 +1,0 @@
-hsflow_download_url: "https://github.com/sflow/host-sflow/releases/download/v{{ hsflow_version }}/hsflowd-{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }}-{{ hsflow_version }}.x86_64.rpm"
