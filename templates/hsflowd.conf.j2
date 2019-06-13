@@ -9,11 +9,10 @@ sflow {
 {% if hsflowd_agent_interface is defined %}
   agent = {{ hsflowd_agent_interface }}
 {% endif %}
-{% if hsflowd_dnssd_domain is defined %}
-  dns-sd { domain = {{ hsflowd_dnssd_domain }} }
-{% endif %}
 {% if hsflowd_dnssd_disabled %}
   dns-sd {}
+{% elif hsflowd_dnssd_domain is defined %}
+  dns-sd { domain = {{ hsflowd_dnssd_domain }} }
 {% endif %}
 {% if hsflowd_polling_rate is defined %}
   polling = {{ hsflowd_polling_rate }}
