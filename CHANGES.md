@@ -1,3 +1,6 @@
+Version 3.0:
+ - Rewrite to support all options as documented
+
 Version 2.2.1:
  - Arbitrary download url support for CentOS or Ubuntu
  - Or install from repo
