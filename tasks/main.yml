@@ -1,5 +1,3 @@
-- debug:
-    var: hsflowd_collectors|length
 - name: Assert minimal hsflowd config
   assert:
     that: hsflowd_collectors|length >= 1
@@ -13,8 +11,9 @@
 
 - name: Install hsflowd with apt
   apt:
-    deb: "{{ hsflowd_url | default( hsflowd_package_name ) }}"
-  when: ansible_os_family == "Debian"
+    deb: "{{ hsflowd_url is defined | ternary( hsflowd_url, omit ) }}"
+    name: "{{ hsflowd_url is defined | ternary( omit, hsflowd_package_name ) }}"
+  when: ansible_os_family is in ["Debian", "Cumulus Linux"]
 
 - name: Template hsflowd.conf
   template:
