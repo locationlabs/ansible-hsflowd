@@ -33,7 +33,7 @@ Minimal required example:
 - hosts: servers
   tasks:
     - import_role:
-        name: hsflow
+        name: hsflowd
       vars:
         hsflowd_url: https://github.com/sflow/host-sflow/releases/download/v2.0.19-1/hsflowd-centos7-2.0.19-1.x86_64.rpm
         hsflowd_collectors:
