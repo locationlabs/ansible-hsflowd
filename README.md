@@ -1,30 +1,28 @@
-# hsflow
+# hsflowd
 
-This role installs the host sflow daemon for gathering and sending metrics using sFlow.
+This role installs the [host-sflow agent][1] for gathering and sending metrics using [sFlow][2].
 
-The expectation is this role will be deployed against hosts where it can retrieve the ganglia
-variables from the environment and begin sending baseline metrics to the ganglia infrastructure for
-that environment. For KVM hosts, this role will be utilized by `ig/deploy/kvm_hypervisors` and
-enable the libvirt integration to gather additional metrics.
+By default this role will install with DNS-SD off and require at least one collector configured.
+Read the host-sflow docs on how to use [DNS-SD][4].
 
 ## Requirements
 
-Requires
+Requires:
 
 * ansible >= 2.4
-* netaddr for determining host IP network
 
 ## Role Variables
 
-* `hsflow_web_install`: boolean - Install from url set via `hsflow_download_url` when true, else install from repo by package name hsflowd
-* `hsflow_download_url`: Where to fetch hsflow from, see https://github.com/sflow/host-sflow/releases
-* `hsflow_kvm`: boolean - Enable libvirt integration when true
-* `hsflow_systemd`: boolean - Enable systemd integration when true
-* `hsflow_ovs`: boolean - Enable openvswitch integration when true
+Minimal required variables:
 
-The following ganglia variables are unique to every environment:
-* `ganglia_listener_ip'`: MANDATORY - The hostname or ip address of the ganglia listener node receiving metrics
-* `ganglia_monitor_send_port'`: MANDATORY - Port number used to send metrics
+* `hsflowd_url`: URL of the hsflowd package - See their [github releases][3] or build/provide your
+ own
+ * `hsflowd_package_name`: Alternatively if a URL is not provided, will attempt to install from the
+  target's available repos using this package name
+* `hsflowd_collectors`: A list of sflow collectors, at least **one** must be defined
+
+See `defaults/main.yml` for example variable usage based on [sflow documentation examples][4] to
+configured additional modules.
 
 ## Dependencies
 
@@ -32,19 +30,20 @@ None
 
 ## Example Playbook
 
-To install hsflow on a host:
+Minimal required example:
 
-    - hosts: servers
-      tasks:
-        - import_role:
-            name: hsflow
+```yaml
+- hosts: servers
+  tasks:
+    - import_role:
+        name: hsflowd
+      vars:
+        hsflowd_url: https://github.com/sflow/host-sflow/releases/download/v2.0.19-1/hsflowd-centos7-2.0.19-1.x86_64.rpm
+        hsflowd_collectors:
+          - ip: 10.100.12.13
+```
 
-To enable the integrations:
-
-    - hosts: hypervisors
-      tasks:
-        - import_role:
-            name: hsflow
-          vars:
-            hsflow_kvm: true
-            hsflow_systemd: true
+[1]: https://github.com/sflow/host-sflow
+[2]: https://sflow.net/index.php
+[3]: https://github.com/sflow/host-sflow/releases
+[4]: https://sflow.net/host-sflow-linux-config.php

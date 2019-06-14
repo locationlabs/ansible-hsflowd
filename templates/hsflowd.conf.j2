@@ -3,10 +3,69 @@
 # http://sflow.net/host-sflow-linux-config.php
 
 sflow {
-  agent.cidr = {{ net_mask|ipaddr('net') }}
-  collector { ip={{ ganglia_listener_ip|mandatory }} udpport={{ ganglia_monitor_send_port|mandatory }} }
-{% if hsflow_kvm %}  kvm { } {% endif %}
-{% if hsflow_systemd %}  systemd { } {% endif %}
-{% if hsflow_ovs %}  ovs { } {% endif %}
+{% if hsflowd_agent_interface is defined %}
+  agent = {{ hsflowd_agent_interface }}
+{% elif hsflowd_agent_cidr is defined %}
+  agent.cidr = {{ hsflowd_agent_cidr }}
+{% endif %}
+{% if hsflowd_dnssd_disabled %}
+{% if hsflowd_polling_rate is defined %}
+  polling = {{ hsflowd_polling_rate }}
+{% endif %}
+{% if hsflowd_sampling_interfaces is defined %}
+{% for item in hsflowd_sampling_interfaces|sort(attribute='name') %}
+  sampling.{{ item.name }} = {{ item.rate }}
+{% endfor %}
+{% endif %}
+{% if hsflowd_default_sampling_rate is defined %}
+  sampling = {{ hsflowd_default_sampling_rate }}
+{% endif %}
+{% for collector in hsflowd_collectors %}
+  collector { ip = {{ collector.ip }} {% if collector.udpport is defined %}udpport = {{ collector.udpport }}{% endif %} }
+{% endfor %}
+{% else %}
+  dns-sd { {% if hsflowd_dnssd_domain is defined %}domain = {{ hsflowd_dnssd_domain }}{% endif %} }
+{% endif %}
 
+{% if hsflowd_kvm %}
+  kvm { }
+{% endif %}
+{% if hsflowd_systemd %}
+  systemd { {% if hsflowd_systemd_mark_traffic %}markTraffic = on{% endif %} }
+{% endif %}
+{% if hsflowd_ovs %}
+  ovs { }
+{% endif %}
+{% if hsflowd_json_udpport is defined %}
+  json { udpport = {{ hsflowd_json_udpport }} }
+{% endif %}
+{% if hsflowd_pcap_devices is defined %}
+{% for item in hsflowd_pcap_devices %}
+  pcap { dev = {{ item.name }} {% if item.promisc is defined %}promisc = on{% endif %} }
+{% endfor %}
+{% endif %}
+{% if hsflowd_pcap_all_speed is defined %}
+  pcap { speed = {{ hsflowd_pcap_all_speed }} }
+{% endif %}
+{% if hsflowd_nflog_group is defined %}
+  nflog { group = {{ hsflowd_nflog_group }} probability = {{ hsflowd_nflog_probability }} }
+{% endif %}
+{% if hsflowd_ulog_group is defined %}
+  ulog { group = {{ hsflowd_ulog_group }} probability = {{ hsflowd_ulog_probability }} }
+{% endif %}
+{% if hsflowd_tcp %}
+  tcp { }
+{% endif %}
+{% if hsflowd_xen %}
+  xen { }
+{% endif %}
+{% if hsflowd_docker %}
+  docker { }
+{% endif %}
+{% if hsflowd_dbus %}
+  dbus { }
+{% endif %}
+{% if hsflowd_nvml %}
+  nvml { }
+{% endif %}
 }

@@ -1,4 +1,57 @@
-hsflow_web_install: true
-hsflow_kvm: false
-hsflow_systemd: false
-hsflow_ovs: false
+hsflowd_package_name: hsflowd
+
+hsflowd_kvm: false
+hsflowd_ovs: false
+hsflowd_tcp: false
+hsflowd_xen: false
+hsflowd_docker: false
+hsflowd_dbus: false
+hsflowd_nvml: false
+hsflowd_systemd: false
+hsflowd_systemd_mark_traffic: false
+hsflowd_dnssd_disabled: true
+
+# Examples from sflow documentation
+# https://sflow.net/host-sflow-linux-config.php
+#
+# Using ansible facts to define which IP hsflowd will select as the agent IP
+# note: ipaddr filter depends on netaddr python package
+#
+# hsflowd_agent_cidr: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }} | ipaddr('net')"\
+#
+# hsflowd_agent_interface: "{{ ansible_default_ipv4.interface }}"
+#
+# hsflowd_dnssd_domain: ".mycompany.com"
+#
+# hsflowd_collectors:
+#   - ip: 10.100.12.13
+#   - ip: 10.144.1.2
+#     udpport: 6344
+#
+# hsflowd_polling_rate: 30
+#
+# hsflowd_sampling_interfaces:
+#   - name: 1G
+#     rate: 2048
+#   - name: http
+#     rate: 10
+#   - name: ".app.myapplication"
+#     rate: 20
+#
+# hsflowd_default_sampling_rate: 400
+#
+# hsflowd_json_udpport: 36343
+#
+# hsflowd_pcap_devices:
+#   - name: docker0
+#   - name: docker_gwbridge
+#   - name: eth2
+#     promisc: on
+#
+# hsflowd_pcap_all_speed: 1G-1T
+#
+# hsflowd_nflog_group: 5
+# hsflowd_nflog_probability: 0.0025
+#
+# hsflowd_ulog_group: 2
+# hsflowd_ulog_probability: 0.01
