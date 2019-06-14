@@ -3,17 +3,12 @@
 # http://sflow.net/host-sflow-linux-config.php
 
 sflow {
-{% if hsflowd_agent_cidr is defined %}
-  agent.cidr = {{ hsflowd_agent_cidr }}
-{% endif %}
 {% if hsflowd_agent_interface is defined %}
   agent = {{ hsflowd_agent_interface }}
+{% elif hsflowd_agent_cidr is defined %}
+  agent.cidr = {{ hsflowd_agent_cidr }}
 {% endif %}
 {% if hsflowd_dnssd_disabled %}
-  dns-sd {}
-{% elif hsflowd_dnssd_domain is defined %}
-  dns-sd { domain = {{ hsflowd_dnssd_domain }} }
-{% endif %}
 {% if hsflowd_polling_rate is defined %}
   polling = {{ hsflowd_polling_rate }}
 {% endif %}
@@ -28,6 +23,10 @@ sflow {
 {% for collector in hsflowd_collectors %}
   collector { ip = {{ collector.ip }} {% if collector.udpport is defined %}udpport = {{ collector.udpport }}{% endif %} }
 {% endfor %}
+{% else %}
+  dns-sd { {% if hsflowd_dnssd_domain is defined %}domain = {{ hsflowd_dnssd_domain }}{% endif %} }
+{% endif %}
+
 {% if hsflowd_kvm %}
   kvm { }
 {% endif %}

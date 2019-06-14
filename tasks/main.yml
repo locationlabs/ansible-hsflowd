@@ -1,7 +1,8 @@
-- name: Assert minimal hsflowd config
+- name: Assert minimal hsflowd config if DNS-SD if disabled
   assert:
     that: hsflowd_collectors|length >= 1
     msg: "At least one collector must be defined."
+  when: hsflowd_dnssd_disabled
 
 - name: Install hsflowd with yum
   yum:

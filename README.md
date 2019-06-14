@@ -2,6 +2,9 @@
 
 This role installs the [host-sflow agent][1] for gathering and sending metrics using [sFlow][2].
 
+By default this role will install with DNS-SD off and require at least one collector configured.
+Read the host-sflow docs on how to use [DNS-SD][4].
+
 ## Requirements
 
 Requires:

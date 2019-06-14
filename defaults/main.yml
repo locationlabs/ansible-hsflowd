@@ -9,7 +9,7 @@ hsflowd_dbus: false
 hsflowd_nvml: false
 hsflowd_systemd: false
 hsflowd_systemd_mark_traffic: false
-hsflowd_dnssd_disabled: false
+hsflowd_dnssd_disabled: true
 
 # Examples from sflow documentation
 # https://sflow.net/host-sflow-linux-config.php
